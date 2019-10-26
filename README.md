@@ -1,5 +1,6 @@
 # TransformerTC
 [![Documentation Status](https://readthedocs.org/projects/transformertc/badge/?version=latest)](http://transformertc.readthedocs.io/?badge=latest)
+[![License](https://img.shields.io/github/license/lrei/transformertc.svg)](https://github.com/lrei/transformertc/blob/master/LICENSE)
 
 ## Introductions
 Transformer based Token Classification.
