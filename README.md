@@ -18,13 +18,13 @@ using  your preferred installation packages (i.e. optimized for your CPU/GPU).
 
 Example using virtualenv:
 
-    ```bash
-    virtualenv venv
-    source venv/bin/activate
-    cd transformertc
-    pip install -r requirements.exact.txt
-    python setup.py install
-    ```
+```bash
+virtualenv venv
+source venv/bin/activate
+cd transformertc
+pip install -r requirements.exact.txt
+python setup.py install
+```
 
 Note: Two different `requirements.txt` files are provided:
 
@@ -40,13 +40,13 @@ environment is shared,  using the pinned versions might be restrictive.
 To disable debugging / asserts set the environment variable `PYTHONOPTIMIZE`
 e.g.:
 
-    ```bash
-    export PYTHONOPTIMIZE=TRUE
-    ```
+```bash
+export PYTHONOPTIMIZE=TRUE
+```
 
 or  use `-O` e.g.
 
-    ```bash
-    python -Oc program.py
-    ```
+```bash
+python -Oc program.py
+```
 
