@@ -1,4 +1,7 @@
 # TransformerTC
+| docs |
+
+## Introductions
 Transformer based Token Classification.
 
 Currently supports training and inference for Named Entity Recognition (NER)
@@ -50,3 +53,9 @@ or  use `-O` e.g.
 python -Oc program.py
 ```
 
+License
+-------
+
+`MIT`_ © 2019 Luis Rei
+
+.. _MIT: LICENSE
