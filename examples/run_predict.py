@@ -3,8 +3,13 @@
 # Copyright (c) 2019 Luis Rei
 # MIT License
 
-"""
-A script that loads a trained model (fine tuned) and runs inference.
+"""A script that loads a trained model (fine tuned) and runs inference.
+
+ - Loads a pretrained, pre-finetuned model;
+ - Loads a file with line delimited setences (pre-tokenized);
+ - Runs classification;
+ - Saves results to an output file;
+
 """
 
 import argparse
