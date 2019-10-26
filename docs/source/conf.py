@@ -36,6 +36,7 @@ extensions = [
     'sphinx.ext.napoleon',
 ]
 
+master_doc = 'index'
 autoapi_dirs = ['../../transformertc']
 
 # Add any paths that contain templates here, relative to this directory.
