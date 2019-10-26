@@ -66,7 +66,7 @@ setup(
         'typing',
     ],
     # tests_require=['pytest'],
-    python_requires='>=3.6.0',
+    python_requires='>=3.7.0',
     classifiers=[
         'Intended Audience :: Science/Research',
         'Development Status :: 3 - Alpha',

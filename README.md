@@ -1,8 +1,8 @@
 # TransformersTC
 Transformer based Token Classification.
 
-Currently supports training and inference for Named Entity Recognition tasks
-using BERT models.
+Currently supports training and inference for Named Entity Recognition (NER)
+tasks using BERT models.
 
 ## Examples
 
