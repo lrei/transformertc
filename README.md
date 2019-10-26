@@ -1,4 +1,4 @@
-# TransformersTC
+# TransformerTC
 Transformer based Token Classification.
 
 Currently supports training and inference for Named Entity Recognition (NER)
