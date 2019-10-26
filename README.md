@@ -1,5 +1,5 @@
 # TransformerTC
-| docs |
+[![Documentation Status](https://readthedocs.org/projects/transformertc/badge/?version=latest)](http://transformertc.readthedocs.io/?badge=latest)
 
 ## Introductions
 Transformer based Token Classification.
@@ -52,10 +52,3 @@ or  use `-O` e.g.
 ```bash
 python -Oc program.py
 ```
-
-License
--------
-
-`MIT`_ © 2019 Luis Rei
-
-.. _MIT: LICENSE
