@@ -1,0 +1,12 @@
+numpy
+# neural network framework
+torch
+# for the pretrained models and all associated functions
+transformers
+# progressbars
+tqdm
+# metrics
+scikit-learn
+seqeval
+# type checks
+typing
