@@ -20,14 +20,3 @@ Indices and tables
 * :ref:`search`
 
 
-BertTC
-=====================
-.. automodule:: transformertc.berttc
-   :members:
-
-datatc
-=================
-.. automodule:: transformertc.datatc
-   :members:
-
-

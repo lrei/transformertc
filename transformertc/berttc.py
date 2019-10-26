@@ -181,12 +181,23 @@ class BertTC(object):
 
     def finetune(self,
                  dataloader,
-                 epochs=4,
-                 lr=5e-5,
-                 wdecay=0.0,
-                 warmup_steps=0,
-                 adam_epsilon=1e-8,
-                 progressbar=False):
+                 epochs: int = 4,
+                 lr: float = 5e-5,
+                 wdecay: float = 0.0,
+                 warmup_steps: int = 0,
+                 adam_epsilon: float = 1e-8,
+                 progressbar: bool = False) -> None:
+        """Fine-tune pretrained model on a TC task.
+
+        Arguments:
+            dataloader (DataLoader): a pytorch dataloader.
+            epochs (int): number of epochs to fine-tune for.
+            lr (float): the learning rate.
+            wdecay (float): weight decay.
+            warmup_steps (int): number of steps to run linear warmup for.
+            adam_epsilon (float): epsilon parameter for Adam optimizer.
+            progressbar (bool): use TQDM progress bar during fine tuning.
+        """
 
         no_tqdm = not progressbar
         pytorch_train(model=self.model,
@@ -203,3 +214,5 @@ class BertTC(object):
                       labels=self.configtc.labels,
                       val_dataloader=None,
                       no_tqdm=no_tqdm)
+
+        return None
