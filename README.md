@@ -39,17 +39,3 @@ If installing everything inside the virtualenv, there should be no problem
 getting the exact versions of the packages. However, if for some reason the
 environment is shared,  using the pinned versions might be restrictive.
 
-
-### Running tips:
-To disable debugging / asserts set the environment variable `PYTHONOPTIMIZE`
-e.g.:
-
-```bash
-export PYTHONOPTIMIZE=TRUE
-```
-
-or  use `-O` e.g.
-
-```bash
-python -Oc program.py
-```
