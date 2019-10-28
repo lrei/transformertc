@@ -12,7 +12,7 @@ from transformers import BertConfig, BertForTokenClassification, BertTokenizer
 
 from .configtc import ConfigTC
 from .classification import extract_features, pytorch_classify
-from .classification import convert_classification_to_result
+from .classification import convert_classifications_to_result
 from .train import pytorch_train
 from .datatc import ResultTC
 
@@ -170,12 +170,12 @@ class BertTC(object):
                                          batch_size=batch_size,
                                          no_tqdm=no_tqdm)
         # convert to results
-        results = convert_classification_to_result(texts=texts,
-                                                   all_features=all_features,
-                                                   all_predictions=preds,
-                                                   all_scores=scores,
-                                                   id2label=id2label,
-                                                   task_format=task_format)
+        results = convert_classifications_to_result(texts=texts,
+                                                    all_features=all_features,
+                                                    all_predictions=preds,
+                                                    all_scores=scores,
+                                                    id2label=id2label,
+                                                    task_format=task_format)
 
         return results
 

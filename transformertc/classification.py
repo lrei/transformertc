@@ -150,48 +150,71 @@ def extract_simple(positions, tokens, preds, scores):
     return results
 
 
-def convert_classification_to_result(texts,
-                                     all_features,
-                                     all_predictions,
-                                     all_scores,
+def convert_classification_to_result(data,
+                                     extract_f,
                                      id2label,
                                      task_format='BIO'):
+    """Convert a tuple containing all the data for a single example."""
+
+    tokens, feats, preds, scores = data  # unpack
+    if len(feats.token_positions) == 0:
+        # no need to check empty examples
+        return []
+
+    # mask predictions
+    mask = np.array(feats.label_ids) >= 0
+    preds = np.array(preds)[mask].tolist()
+    scores = np.array(scores)[mask].tolist()
+    # convert label ids to labels
+    preds = [id2label[v] for v in preds]
+
+    # ensure max token length
+    length = feats.token_positions[-1] + 1
+    tokens = tokens[:length]
+    positions = list(range(0, length))
+
+    # basic length assertion
+    assert len(preds) == len(tokens), 'Length mismatch tokens != preds'
+
+    result = extract_f(positions, tokens, preds, scores)
+    return result
+
+
+def convert_classifications_to_result(texts,
+                                      all_features,
+                                      all_predictions,
+                                      all_scores,
+                                      id2label,
+                                      task_format='BIO',
+                                      n_jobs=-1):
     """Convert model predictions to a list of ``ResultTC``."""
     results = []
     iterator = None
     iterator = zip(texts, all_features, all_predictions, all_scores)
 
-    for tokens, feats, preds, scores in iterator:
-        # no need to check empty examples
-        if len(feats.token_positions) == 0:
-            results.append([])
-            continue
+    # ensure valid format
+    extract_f = None
+    task_format = task_format.upper()
+    if task_format == 'BIO':
+        extract_f = extract_bio
+    elif task_format == 'SIMPLE':
+        extract_f = extract_simple
+    else:
+        raise ValueError(f'Invalid task_format={task_format}')
 
-        # mask predictions
-        mask = np.array(feats.label_ids) >= 0
-        preds = np.array(preds)[mask].tolist()
-        scores = np.array(scores)[mask].tolist()
-        # convert label ids to labels
-        preds = [id2label[v] for v in preds]
+    # conversion function
+    f_con = partial(convert_classification_to_result,
+                    extract_f=extract_f,
+                    id2label=id2label,
+                    task_format=task_format)
 
-        # ensure max token length
-        length = feats.token_positions[-1] + 1
-        tokens = tokens[:length]
-        positions = list(range(0, length))
+    if n_jobs <= 0:
+        n_jobs = cpu_count()
 
-        # basic length assertion
-        assert len(preds) == len(tokens), 'Length mismatch tokens != preds'
+    logger.info(f'Feature extraction: {len(texts)} items on {n_jobs} jobs')
 
-        result = None
-        # simple token classification
-        if task_format is None or task_format.upper() == 'SIMPLE':
-            result = extract_simple(positions, tokens, preds, scores)
-        elif task_format.upper() == 'BIO':
-            result = extract_bio(positions, tokens, preds, scores)
-        else:
-            raise ValueError(f'Invalid task_format={task_format}')
-
-        results.append(result)
+    with Pool(processes=n_jobs) as pool:
+        results = pool.map(f_con, iterator)
 
     return results
 
