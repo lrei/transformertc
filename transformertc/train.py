@@ -9,7 +9,7 @@ Train function for Token level Classification with BERT
 import logging
 import torch
 
-from transformers import AdamW, WarmupLinearSchedule
+from transformers import AdamW, get_linear_schedule_with_warmup
 from torch.nn.utils import clip_grad_norm_
 
 from tqdm import tqdm, trange
@@ -64,8 +64,9 @@ def get_optimizer_and_scheduler(model, lr, wdecay, adam_eps, warmup_steps,
          'weight_decay': 0.0}
     ]
     optimizer = AdamW(optimizer_grouped_parameters, lr=lr, eps=adam_eps)
-    scheduler = WarmupLinearSchedule(optimizer, warmup_steps=warmup_steps,
-                                     t_total=total_steps)
+    scheduler = get_linear_schedule_with_warmup(optimizer,
+                                                num_warmup_steps=warmup_steps,
+                                                num_training_steps=total_steps)
 
     return optimizer, scheduler
 
